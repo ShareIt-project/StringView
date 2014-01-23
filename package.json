@@ -1,0 +1,26 @@
+{
+  "name": "StringView",
+  "version": "0.0.0",
+  "description": "Array type viewer for strings",
+  "main": "stringview.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ShareIt-project/StringView.git"
+  },
+  "keywords": [
+    "ArrayBuffer",
+    "ArrayBufferView",
+    "Typed",
+    "array",
+    "string"
+  ],
+  "author": "Mozilla",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/ShareIt-project/StringView/issues"
+  },
+  "homepage": "https://github.com/ShareIt-project/StringView"
+}
