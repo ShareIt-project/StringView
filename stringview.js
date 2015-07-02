@@ -16,13 +16,15 @@ if (!Number.isInteger) {
 
 /*\
 |*|
-|*|  StringView - Mozilla Developer Network - revision #6
+|*|  StringView - Mozilla Developer Network
+|*|
+|*|  Revision #8, October 6, 2014
 |*|
 |*|  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays/StringView
-|*|  https://developer.mozilla.org/User:fusionchess
+|*|  https://developer.mozilla.org/en-US/docs/User:fusionchess
 |*|
-|*|  This framework is released under the GNU Public License, version 3 or later.
-|*|  http://www.gnu.org/licenses/gpl-3.0-standalone.html
+|*|  This framework is released under the GNU Lesser General Public License, version 3 or later.
+|*|  http://www.gnu.org/licenses/lgpl-3.0.html
 |*|
 \*/
 
@@ -320,7 +322,7 @@ StringView.loadUTF8CharCode = function (aChars, nIdx) {
   var nLen = aChars.length, nPart = aChars[nIdx];
 
   return nPart > 251 && nPart < 254 && nIdx + 5 < nLen ?
-      /* (nPart - 252 << 32) is not possible in ECMAScript! So...: */
+      /* (nPart - 252 << 30) may be not safe in ECMAScript! So...: */
       /* six bytes */ (nPart - 252) * 1073741824 + (aChars[nIdx + 1] - 128 << 24) + (aChars[nIdx + 2] - 128 << 18) + (aChars[nIdx + 3] - 128 << 12) + (aChars[nIdx + 4] - 128 << 6) + aChars[nIdx + 5] - 128
     : nPart > 247 && nPart < 252 && nIdx + 4 < nLen ?
       /* five bytes */ (nPart - 248 << 24) + (aChars[nIdx + 1] - 128 << 18) + (aChars[nIdx + 2] - 128 << 12) + (aChars[nIdx + 3] - 128 << 6) + aChars[nIdx + 4] - 128
@@ -366,7 +368,7 @@ StringView.putUTF8CharCode = function (aTarget, nChar, nPutAt) {
     aTarget[nIdx++] = 0x80 /* 128 */ + (nChar & 0x3f /* 63 */);
   } else /* if (nChar <= 0x7fffffff) */ { /* 2147483647 */
     /* six bytes */
-    aTarget[nIdx++] = 0xfc /* 252 */ + /* (nChar >>> 32) is not possible in ECMAScript! So...: */ (nChar / 1073741824);
+    aTarget[nIdx++] = 0xfc /* 252 */ + /* (nChar >>> 30) may be not safe in ECMAScript! So...: */ (nChar / 1073741824);
     aTarget[nIdx++] = 0x80 /* 128 */ + ((nChar >>> 24) & 0x3f /* 63 */);
     aTarget[nIdx++] = 0x80 /* 128 */ + ((nChar >>> 18) & 0x3f /* 63 */);
     aTarget[nIdx++] = 0x80 /* 128 */ + ((nChar >>> 12) & 0x3f /* 63 */);
